@@ -1,0 +1,44 @@
+{
+  "engineVersion": "5.2.0",
+  "compilerVersion": "5.2.0",
+  "template": {},
+  "target": {
+    "current": "web"
+  },
+  "eui": {
+    "exmlRoot": [
+      "resource/eui_skins"
+    ],
+    "themes": [
+      "resource/default.thm.json"
+    ],
+    "exmlPublishPolicy": "commonjs"
+  },
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "eui"
+    },
+    {
+      "name": "assetsmanager"
+    },
+    {
+      "name": "tween"
+    },
+    {
+      "name": "game"
+    },
+    {
+      "name": "dragonBones"
+    },
+    {
+      "name": "promise"
+    },
+    {
+      "name":"greensock",
+      "path":"../../baseframe-h5/egretGame/thirds/greensock"
+    }
+  ]
+}
