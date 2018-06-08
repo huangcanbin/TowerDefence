@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PreLoadSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Image source="0ui_bg_jpg" horizontalCenter="0" top="0" bottom="0" left="0" right="0"/>
+	<ns1:ProgressLoadBar id="progress" skinName="LoadProgressSkin" horizontalCenter="0" verticalCenter="90" value="110"/>
+	<w:Config id="163ddf943d1"/>
+</e:Skin>

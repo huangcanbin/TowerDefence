@@ -92,9 +92,11 @@ var Main = (function (_super) {
         var assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-        this.runGame().catch(function (e) {
-            console.log(e);
-        });
+        //添加游戏容器到舞台
+        this.addChild(GameLayerManager.getInstance());
+        // this.runGame().catch(e => {
+        //     console.log(e);
+        // })
     };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
