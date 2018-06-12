@@ -12,7 +12,7 @@ var ProgressLoadBar = (function (_super) {
     __extends(ProgressLoadBar, _super);
     function ProgressLoadBar() {
         var _this = _super.call(this) || this;
-        _this.skinName = '';
+        _this.skinName = 'resource/UISkin/LoadProgressSkin.exml';
         return _this;
     }
     return ProgressLoadBar;

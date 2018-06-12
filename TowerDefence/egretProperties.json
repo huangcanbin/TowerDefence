@@ -37,16 +37,16 @@
       "name": "promise"
     },
     {
-      "name": "puremvc",
-      "path": "../../modules/puremvc"
-    },
-    {
       "name": "protobuf",
       "path": "../../modules/protobuf"
     },
     {
       "name": "greensock",
       "path": "../../baseframe-h5/egretGame/thirds/greensock"
+    },
+    {
+      "name": "puremvc",
+      "path": "../../baseframe-h5/egretGame/thirds/puremvc"
     }
   ]
 }

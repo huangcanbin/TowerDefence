@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "0ui_bg_jpg,probarbg_png,probartop_png",
+			"keys": "0ui_bg_jpg,probarbg_png,probartop_png,loadingCircle_png,tipsBg_png",
 			"name": "preload"
 		},
 		{
@@ -1050,6 +1050,16 @@
 			"url": "assets/ScrollBar/track_sb.png",
 			"type": "image",
 			"name": "track_sb_png"
+		},
+		{
+			"name": "loadingCircle_png",
+			"type": "image",
+			"url": "assets/loadingCircle.png"
+		},
+		{
+			"name": "tipsBg_png",
+			"type": "image",
+			"url": "assets/tipsBg.png"
 		}
 	]
 }
