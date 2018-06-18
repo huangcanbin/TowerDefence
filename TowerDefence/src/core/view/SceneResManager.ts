@@ -1,24 +1,24 @@
 /**
- * 场景管理器
+ * 场景资源加载管理器
  * @author Andrew_Huang
- * @class SceneManager
+ * @class SceneResManager
  * @extends {egret.EventDispatcher}
  */
-class SceneManager extends egret.EventDispatcher
+class SceneResManager extends egret.EventDispatcher
 {
     private _resName: string;  //资源组名
 
-    public static _instance: SceneManager;
+    public static _instance: SceneResManager;
     private constructor()
     {
         super();
     }
 
-    public static getInstance(): SceneManager
+    public static getInstance(): SceneResManager
     {
         if (!this._instance)
         {
-            this._instance = new SceneManager();
+            this._instance = new SceneResManager();
         }
         return this._instance;
     }
@@ -34,7 +34,7 @@ class SceneManager extends egret.EventDispatcher
      * 移除上一个场景
      * @author Andrew_Huang
      * @private
-     * @memberof SceneManager
+     * @memberof SceneResManager
      */
     private removeLast(event: MainEvent): void
     {
@@ -63,7 +63,7 @@ class SceneManager extends egret.EventDispatcher
      * 侦听加载完成加载场景事件
      * @author Andrew_Huang
      * @private
-     * @memberof SceneManager
+     * @memberof SceneResManager
      */
     private addScene(): void
     {

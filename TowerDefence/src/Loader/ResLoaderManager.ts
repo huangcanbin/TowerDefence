@@ -6,6 +6,11 @@
 class ResLoaderManager
 {
     public static _instance: ResLoaderManager;
+    private _root: eui.UILayer;
+    private _loadingView: LoadingUI;
+    //是否第一次加载Index
+    private _loadIndexIsFirst: boolean = true;
+
     private constructor()
     {
 
@@ -20,8 +25,20 @@ class ResLoaderManager
         return this._instance
     }
 
-    public init(): void
+    /**
+     * 初始化资源加载
+     * @author Andrew_Huang
+     * @param {eui.UILayer} root 舞台节点
+     * @memberof ResLoaderManager
+     */
+    public init(root: eui.UILayer): void
     {
+        if (!this._root)
+        {
+            this._root = root;
+        }
+        this._loadingView = new LoadingUI();
+        GameLayerManager.getInstance().addChild(this._loadingView);
         Loader.getInstance().addEventListener(LoadEvent.GROUP_COMPLETE, this.loadComp, this);
         Loader.getInstance().addEventListener(LoadEvent.GROUP_PROGRESS, this.loadProgress, this);
         Loader.getInstance().init();
@@ -40,17 +57,19 @@ class ResLoaderManager
         switch (group)
         {
             case "preload":
-                //this.removeChild(this.loadingView); this.loadingView = null; this.createScene();
+                GameLayerManager.getInstance().removeChild(this._loadingView);
+                this._loadingView = null;
+                this.createScene();
                 //读取本地游戏配置和储存的数据
-                //StorageSetting.loadConfig();
+                StorageSetting.loadConfig();
                 break;
             case "welcomeload":
-            // if (this.loadIndexIsFirst)
-            // {
-            //     this.preload.loadComp();
-            //     this.loadIndexIsFirst = false;
-            //     break;
-            // }
+                if (this._loadIndexIsFirst)
+                {
+                    AppFacade.instance().sendNotification(LoadingSceneNotice.CLOSE);
+                    this._loadIndexIsFirst = false;
+                    break;
+                }
             default:
                 if (event.groupName == "uiLoad")
                 {
@@ -90,15 +109,34 @@ class ResLoaderManager
         switch (group)
         {
             case "preload":
-                //this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+                this._loadingView.onProgress(event.itemsLoaded, event.itemsTotal);
                 break;
             case "welcomeload":
-            // if (this.loadIndexIsFirst)
-            // {
-            //     this.preload.setProgress(event.itemsLoaded, event.itemsTotal);
-            //     break;
-            // }
+                if (this._loadIndexIsFirst)
+                {
+                    let preload: PreLoad = <PreLoad>GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (preload && (preload instanceof PreLoad))
+                    {
+                        preload.setProgress(event.itemsLoaded, event.itemsTotal);
+                    }
+                    break;
+                }
             default: //this.loadBar.setProgress(event.itemsLoaded, event.itemsTotal);
         }
+    }
+
+    /**
+     * 预加载资源完成，启动游戏
+     * @author Andrew_Huang
+     * @private
+     * @memberof ResLoaderManager
+     */
+    private createScene(): void
+    {
+        //初始化游戏场景层
+        this._root.addChild(GameLayerManager.getInstance())
+        AppFacade.instance().startUp(this._root);
+        //加载加载界面
+        AppFacade.instance().sendNotification(LoadingSceneNotice.OPEN);
     }
 }

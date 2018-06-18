@@ -15,7 +15,7 @@ class ControllerPrepCommand extends puremvc.SimpleCommand implements puremvc.ICo
     public execute(notification: puremvc.INotification): void
     {
         // 注册管理器的消息
-        // (new SceneManager()).register();
-        // (new MainManager()).register();
+        (new SceneManager()).register();
+        (new LoadingSceneManager()).register();
     }
 }
