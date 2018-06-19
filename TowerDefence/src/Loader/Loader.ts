@@ -10,7 +10,7 @@ class Loader extends egret.EventDispatcher
     //自定义加载侦听事件
     private _loadEvent: LoadEvent;
 
-    public constructor()
+    private constructor()
     {
         super();
     }

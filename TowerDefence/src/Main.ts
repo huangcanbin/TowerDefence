@@ -29,7 +29,7 @@
 
 class Main extends eui.UILayer
 {
-
+    private loadingView: LoadingUI;
 
     protected createChildren(): void
     {
@@ -56,7 +56,6 @@ class Main extends eui.UILayer
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
         let theme = new eui.Theme("resource/default.thm.json", this.stage);
-        ResLoaderManager.getInstance().init();
         //添加游戏容器到舞台
         this.addChild(GameLayerManager.getInstance());
         // this.runGame().catch(e => {

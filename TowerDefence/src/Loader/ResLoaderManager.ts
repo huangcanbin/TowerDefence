@@ -3,27 +3,46 @@
  * @author Andrew_Huang
  * @class ResLoaderManager
  */
-class ResLoaderManager
+class ResLoaderManager extends puremvc.SimpleCommand implements puremvc.ICommand
 {
-    public static _instance: ResLoaderManager;
+    private loadingView: LoadingUI;
+    public static NAME: string = 'ResLoaderManager';
+
     private constructor()
     {
-
+        super();
     }
 
-    public static getInstance(): ResLoaderManager
+    /**
+     * 注册消息
+     * @author Andrew_Huang
+     * @memberof ResLoaderManager
+     */
+    public register(): void
     {
-        if (!this._instance)
-        {
-            this._instance = new ResLoaderManager();
-        }
-        return this._instance
+        this.facade().registerCommand(NotificationName.INIT, ResLoaderManager);
+        this.facade().registerCommand("2", ResLoaderManager);
     }
 
-    public init(): void
+    public execute(notification: puremvc.INotification): void
+    {
+        let data: any = notification.getBody();
+        switch (notification.getName())
+        {
+            case NotificationName.INIT:
+                this.loadingView = new LoadingUI();
+                GameLayerManager.getInstance().addChild(this.loadingView);
+                this.init();
+                break;
+            case "2": break;
+        }
+    }
+
+    private init(): void
     {
         Loader.getInstance().addEventListener(LoadEvent.GROUP_COMPLETE, this.loadComp, this);
         Loader.getInstance().addEventListener(LoadEvent.GROUP_PROGRESS, this.loadProgress, this);
+        //加载preload资源
         Loader.getInstance().init();
     }
 
@@ -40,7 +59,9 @@ class ResLoaderManager
         switch (group)
         {
             case "preload":
-                //this.removeChild(this.loadingView); this.loadingView = null; this.createScene();
+                GameLayerManager.getInstance().removeChild(this.loadingView);
+                this.loadingView = null;
+                //this.createScene();
                 //读取本地游戏配置和储存的数据
                 //StorageSetting.loadConfig();
                 break;
@@ -90,7 +111,7 @@ class ResLoaderManager
         switch (group)
         {
             case "preload":
-                //this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+                this.loadingView.onProgress(event.itemsLoaded, event.itemsTotal);
                 break;
             case "welcomeload":
             // if (this.loadIndexIsFirst)
