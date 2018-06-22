@@ -7,8 +7,6 @@
  */
 class SceneManager extends puremvc.SimpleCommand implements puremvc.ICommand
 {
-    // private welcome: Index;
-
     public constructor(key: string)
     {
         super();
