@@ -26,25 +26,6 @@ var Loader = (function (_super) {
         return this._instance;
     };
     /**
-     * 初始化配置文件
-     * @author Andrew_Huang
-     * @memberof Loader
-     */
-    Loader.prototype.init = function () {
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
-    };
-    /**
-    * 配置文件加载完成,开始预加载preload资源组。
-    */
-    Loader.prototype.onConfigComplete = function (event) {
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.loadGroup("preload");
-    };
-    /**
     * 资源组加载出错
     */
     Loader.prototype.onResourceLoadError = function (event) {

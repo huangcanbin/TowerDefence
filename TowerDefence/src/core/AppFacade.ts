@@ -17,7 +17,7 @@ class AppFacade extends puremvc.Facade implements puremvc.IFacade
 
     public static instance(): AppFacade
     {
-        return <AppFacade>this.getInstance(AppFacade.KEY);
+        return <AppFacade>(this.getInstance(AppFacade.KEY));
     }
 
     public initializeController(): void

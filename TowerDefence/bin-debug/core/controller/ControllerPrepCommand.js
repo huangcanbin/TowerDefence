@@ -22,8 +22,8 @@ var ControllerPrepCommand = (function (_super) {
     }
     ControllerPrepCommand.prototype.execute = function (notification) {
         // 注册管理器的消息
-        // (new SceneManager()).register();
-        // (new MainManager()).register();
+        (new SceneManager(this.multitonKey)).register();
+        (new LoadingSceneManager(this.multitonKey)).register();
     };
     return ControllerPrepCommand;
 }(puremvc.SimpleCommand));

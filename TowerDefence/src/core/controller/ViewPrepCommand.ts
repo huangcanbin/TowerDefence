@@ -14,6 +14,6 @@ class ViewPrepCommand extends puremvc.SimpleCommand implements puremvc.ICommand
 
     public execute(nitification: puremvc.INotification): void
     {
-        this.facade().registerMediator(new TestMediator())
+        this.facade().registerMediator(new IndexMediator())
     }
 }

@@ -21,7 +21,7 @@ var ViewPrepCommand = (function (_super) {
         return _super.call(this) || this;
     }
     ViewPrepCommand.prototype.execute = function (nitification) {
-        this.facade().registerMediator(new TestMediator());
+        this.facade().registerMediator(new IndexMediator());
     };
     return ViewPrepCommand;
 }(puremvc.SimpleCommand));

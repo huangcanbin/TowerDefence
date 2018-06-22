@@ -1,11 +1,11 @@
 {
 	"groups": [
 		{
-			"keys": "0ui_bg_jpg,probarbg_png,probartop_png,loadingCircle_png,tipsBg_png",
+			"keys": "0ui_bg_jpg,probarbg_png,probartop_png,loadingCircle_png,tipsBg_png,0ui_btn_png",
 			"name": "preload"
 		},
 		{
-			"keys": "0ui_btn_png,welbg_jpg,welbtn_png,wellogo_png,liantiao_png,loadbg_jpg,loadl_png,loadr_png,gamebgsound_mp3,loaderClose_mp3,loaderOpen_mp3",
+			"keys": "welbg_jpg,welbtn_png,wellogo_png,liantiao_png,loadbg_jpg,loadl_png,loadr_png,gamebgsound_mp3,loaderClose_mp3,loaderOpen_mp3",
 			"name": "welcomeload"
 		},
 		{
@@ -1052,14 +1052,14 @@
 			"name": "track_sb_png"
 		},
 		{
-			"name": "loadingCircle_png",
+			"url": "assets/loadingCircle.png",
 			"type": "image",
-			"url": "assets/loadingCircle.png"
+			"name": "loadingCircle_png"
 		},
 		{
-			"name": "tipsBg_png",
+			"url": "assets/tipsBg.png",
 			"type": "image",
-			"url": "assets/tipsBg.png"
+			"name": "tipsBg_png"
 		}
 	]
 }

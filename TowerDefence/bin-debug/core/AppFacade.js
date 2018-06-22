@@ -21,7 +21,7 @@ var AppFacade = (function (_super) {
         return _super.call(this, AppFacade.KEY) || this;
     }
     AppFacade.instance = function () {
-        return this.getInstance(AppFacade.KEY);
+        return (this.getInstance(AppFacade.KEY));
     };
     AppFacade.prototype.initializeController = function () {
         _super.prototype.initializeController.call(this);

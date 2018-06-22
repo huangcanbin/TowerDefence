@@ -3,47 +3,41 @@
  * @author Andrew_Huang
  * @class ResLoaderManager
  */
-class ResLoaderManager extends puremvc.SimpleCommand implements puremvc.ICommand
+class ResLoaderManager
 {
-    private loadingView: LoadingUI;
-    public static NAME: string = 'ResLoaderManager';
+    public static _instance: ResLoaderManager;
+    private _root: eui.UILayer;
+    //是否第一次加载Index
+    private _loadIndexIsFirst: boolean = true;
 
     private constructor()
     {
-        super();
+
+    }
+
+    public static getInstance(): ResLoaderManager
+    {
+        if (!this._instance)
+        {
+            this._instance = new ResLoaderManager();
+        }
+        return this._instance
     }
 
     /**
-     * 注册消息
+     * 初始化资源加载
      * @author Andrew_Huang
+     * @param {eui.UILayer} root 舞台节点
      * @memberof ResLoaderManager
      */
-    public register(): void
+    public init(root: eui.UILayer): void
     {
-        this.facade().registerCommand(NotificationName.INIT, ResLoaderManager);
-        this.facade().registerCommand("2", ResLoaderManager);
-    }
-
-    public execute(notification: puremvc.INotification): void
-    {
-        let data: any = notification.getBody();
-        switch (notification.getName())
+        if (!this._root)
         {
-            case NotificationName.INIT:
-                this.loadingView = new LoadingUI();
-                GameLayerManager.getInstance().addChild(this.loadingView);
-                this.init();
-                break;
-            case "2": break;
+            this._root = root;
         }
-    }
-
-    private init(): void
-    {
         Loader.getInstance().addEventListener(LoadEvent.GROUP_COMPLETE, this.loadComp, this);
         Loader.getInstance().addEventListener(LoadEvent.GROUP_PROGRESS, this.loadProgress, this);
-        //加载preload资源
-        Loader.getInstance().init();
     }
 
     /**
@@ -58,20 +52,17 @@ class ResLoaderManager extends puremvc.SimpleCommand implements puremvc.ICommand
         var group: string = event.groupName;
         switch (group)
         {
-            case "preload":
-                GameLayerManager.getInstance().removeChild(this.loadingView);
-                this.loadingView = null;
-                //this.createScene();
-                //读取本地游戏配置和储存的数据
-                //StorageSetting.loadConfig();
-                break;
             case "welcomeload":
-            // if (this.loadIndexIsFirst)
-            // {
-            //     this.preload.loadComp();
-            //     this.loadIndexIsFirst = false;
-            //     break;
-            // }
+                if (this._loadIndexIsFirst)
+                {
+                    let preload: PreLoad = <PreLoad>GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (preload && (preload instanceof PreLoad))
+                    {
+                        preload.loadComplete();
+                    }
+                    this._loadIndexIsFirst = false;
+                    break;
+                }
             default:
                 if (event.groupName == "uiLoad")
                 {
@@ -91,9 +82,13 @@ class ResLoaderManager extends puremvc.SimpleCommand implements puremvc.ICommand
                     //Loader.getInstance().load(GuanKaConfig.guankaData[Main.curGuankaIdx]);
                 } else
                 {
-                    // this.dispatchEvent(new MainEvent(MainEvent.LOADCOMP, e.groupName));
-                    // //展开LoadBar
-                    // this.loadBar.hideLoadBar();
+                    SceneResManager.getInstance().dispatchEvent(new MainEvent(MainEvent.LOADCOMP, event.groupName));
+                    //展开LoadBar
+                    let loadBar: LoadBar = <LoadBar>GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (loadBar && (loadBar instanceof LoadBar))
+                    {
+                        loadBar.hideLoadBar();
+                    }
                 }
         }
     }
@@ -110,16 +105,22 @@ class ResLoaderManager extends puremvc.SimpleCommand implements puremvc.ICommand
         let group: string = event.groupName;
         switch (group)
         {
-            case "preload":
-                this.loadingView.onProgress(event.itemsLoaded, event.itemsTotal);
-                break;
             case "welcomeload":
-            // if (this.loadIndexIsFirst)
-            // {
-            //     this.preload.setProgress(event.itemsLoaded, event.itemsTotal);
-            //     break;
-            // }
-            default: //this.loadBar.setProgress(event.itemsLoaded, event.itemsTotal);
+                if (this._loadIndexIsFirst)
+                {
+                    let preload: PreLoad = <PreLoad>GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (preload && (preload instanceof PreLoad))
+                    {
+                        preload.setProgress(event.itemsLoaded, event.itemsTotal);
+                    }
+                    break;
+                }
+            default:
+                let loadBar: LoadBar = <LoadBar>GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                if (loadBar && (loadBar instanceof LoadBar))
+                {
+                    loadBar.setProgress(event.itemsLoaded, event.itemsTotal);
+                }
         }
     }
 }

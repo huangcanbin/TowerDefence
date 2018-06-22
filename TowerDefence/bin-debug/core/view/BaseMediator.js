@@ -76,8 +76,8 @@ var BaseMediator = (function (_super) {
      */
     BaseMediator.prototype.closePanel = function (effectType) {
         if (effectType === void 0) { effectType = 0; }
-        PopUpManager.removePopUp(this.ui, effectType);
         this.destroy();
+        PopUpManager.removePopUp(this.ui, effectType);
     };
     /**
      * 面板关闭后执行对象和数据的相关销毁

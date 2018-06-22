@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="LoadBarSkin" width="800" height="480" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*">
+	<e:Group id="leftGroup" left="0" top="0" bottom="0">
+		<e:Image source="loadbg_jpg" left="0" top="0" bottom="0" x="-106" y="-125" scaleX="1" scaleY="1"/>
+		<e:Image source="loadl_png" left="0" top="0" bottom="0" x="-106" y="-125" scaleX="1" scaleY="1"/>
+	</e:Group>
+	<e:Group id="rightGroup" right="0" top="0" bottom="0">
+		<e:Image source="loadbg_jpg" top="0" bottom="0" y="-150" right="0" anchorOffsetX="1" x="232" scaleX="-1" scaleY="1"/>
+		<e:Image top="0" bottom="0" y="-150" right="0" source="loadr_png" x="-168" scaleX="1" scaleY="1"/>
+	</e:Group>
+	<ns1:ProgressLoadBar id="progress" skinName="LoadProgressSkin" horizontalCenter="0" bottom="100"/>
+</e:Skin>

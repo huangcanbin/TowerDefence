@@ -92,13 +92,9 @@ var Main = (function (_super) {
         var assetAdapter = new AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
-        var theme = new eui.Theme("resource/default.thm.json", this.stage);
-        ResLoaderManager.getInstance().init();
-        //添加游戏容器到舞台
-        this.addChild(GameLayerManager.getInstance());
-        // this.runGame().catch(e => {
-        //     console.log(e);
-        // })
+        this.runGame().catch(function (e) {
+            console.log(e);
+        });
     };
     Main.prototype.runGame = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -166,6 +162,16 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
+        SceneResManager.getInstance().init();
+        new AppFacade();
+        ResLoaderManager.getInstance().init(this);
+        //读取本地游戏配置和储存的数据
+        StorageSetting.loadConfig();
+        //初始化游戏场景层
+        this.addChild(GameLayerManager.getInstance());
+        AppFacade.instance().startUp(this);
+        //加载加载界面
+        AppFacade.instance().sendNotification(LoadingSceneNotice.OPEN);
     };
     return Main;
 }(eui.UILayer));

@@ -25,29 +25,6 @@ class Loader extends egret.EventDispatcher
     }
 
     /**
-     * 初始化配置文件
-     * @author Andrew_Huang
-     * @memberof Loader
-     */
-    public init(): void
-    {
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
-    }
-
-    /**
-    * 配置文件加载完成,开始预加载preload资源组。
-    */
-    private onConfigComplete(event: RES.ResourceEvent): void
-    {
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.loadGroup("preload");
-    }
-
-    /**
     * 资源组加载出错
     */
     private onResourceLoadError(event: RES.ResourceEvent): void

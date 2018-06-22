@@ -16,15 +16,25 @@ r.prototype = e.prototype, t.prototype = new r();
  */
 var MainEvent = (function (_super) {
     __extends(MainEvent, _super);
-    function MainEvent(type, resName, bubbles, cancelable) {
+    function MainEvent(type, resName, noticeName, bubbles, cancelable) {
         if (resName === void 0) { resName = ""; }
+        if (noticeName === void 0) { noticeName = ''; }
         if (bubbles === void 0) { bubbles = false; }
         if (cancelable === void 0) { cancelable = false; }
         var _this = _super.call(this, type, bubbles, cancelable) || this;
         _this._resName = "";
+        _this._noticeName = '';
         _this._resName = resName;
+        _this._noticeName = noticeName;
         return _this;
     }
+    Object.defineProperty(MainEvent.prototype, "noticeName", {
+        get: function () {
+            return this._noticeName;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MainEvent.prototype, "resName", {
         get: function () {
             return this._resName;

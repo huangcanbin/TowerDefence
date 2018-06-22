@@ -29,7 +29,9 @@
 		"resource/eui_skins/ToggleSwitchSkin.exml",
 		"resource/eui_skins/VScrollBarSkin.exml",
 		"resource/eui_skins/VSliderSkin.exml",
+		"resource/UISkin/IndexSkin.exml",
 		"resource/UISkin/LoadProgressSkin.exml",
+		"resource/UISkin/LoadBarSkin.exml",
 		"resource/UISkin/PreLoadSkin.exml"
 	],
 	"path": "resource/default.thm.json"

@@ -72,8 +72,8 @@ class BaseMediator extends puremvc.Mediator implements puremvc.IMediator
      */
     public closePanel(effectType: number = 0): void
     {
-        PopUpManager.removePopUp(this.ui, effectType);
         this.destroy();
+        PopUpManager.removePopUp(this.ui, effectType);
     }
 
     /**

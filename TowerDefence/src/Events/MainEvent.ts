@@ -20,10 +20,17 @@ class MainEvent extends egret.Event
     public static TRYAGAIN: string = "tryagain";
 
     private _resName: string = "";
-    public constructor(type: string, resName: string = "", bubbles: boolean = false, cancelable: boolean = false)
+    private _noticeName: string = ''
+    public constructor(type: string, resName: string = "", noticeName: string = '', bubbles: boolean = false, cancelable: boolean = false)
     {
         super(type, bubbles, cancelable);
         this._resName = resName;
+        this._noticeName = noticeName;
+    }
+
+    public get noticeName(): string
+    {
+        return this._noticeName;
     }
 
     public get resName(): string

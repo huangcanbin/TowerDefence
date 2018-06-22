@@ -8,6 +8,8 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
  */
 var ResLoaderManager = (function () {
     function ResLoaderManager() {
+        //是否第一次加载Index
+        this._loadIndexIsFirst = true;
     }
     ResLoaderManager.getInstance = function () {
         if (!this._instance) {
@@ -15,10 +17,18 @@ var ResLoaderManager = (function () {
         }
         return this._instance;
     };
-    ResLoaderManager.prototype.init = function () {
+    /**
+     * 初始化资源加载
+     * @author Andrew_Huang
+     * @param {eui.UILayer} root 舞台节点
+     * @memberof ResLoaderManager
+     */
+    ResLoaderManager.prototype.init = function (root) {
+        if (!this._root) {
+            this._root = root;
+        }
         Loader.getInstance().addEventListener(LoadEvent.GROUP_COMPLETE, this.loadComp, this);
         Loader.getInstance().addEventListener(LoadEvent.GROUP_PROGRESS, this.loadProgress, this);
-        Loader.getInstance().init();
     };
     /**
      * 分组资源加载完成
@@ -30,18 +40,15 @@ var ResLoaderManager = (function () {
     ResLoaderManager.prototype.loadComp = function (event) {
         var group = event.groupName;
         switch (group) {
-            case "preload":
-                //this.removeChild(this.loadingView); this.loadingView = null; this.createScene();
-                //读取本地游戏配置和储存的数据
-                //StorageSetting.loadConfig();
-                break;
             case "welcomeload":
-            // if (this.loadIndexIsFirst)
-            // {
-            //     this.preload.loadComp();
-            //     this.loadIndexIsFirst = false;
-            //     break;
-            // }
+                if (this._loadIndexIsFirst) {
+                    var preload = GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (preload && (preload instanceof PreLoad)) {
+                        preload.loadComplete();
+                    }
+                    this._loadIndexIsFirst = false;
+                    break;
+                }
             default:
                 if (event.groupName == "uiLoad") {
                     console.log("加载怪物资源");
@@ -60,9 +67,12 @@ var ResLoaderManager = (function () {
                     //Loader.getInstance().load(GuanKaConfig.guankaData[Main.curGuankaIdx]);
                 }
                 else {
-                    // this.dispatchEvent(new MainEvent(MainEvent.LOADCOMP, e.groupName));
-                    // //展开LoadBar
-                    // this.loadBar.hideLoadBar();
+                    SceneResManager.getInstance().dispatchEvent(new MainEvent(MainEvent.LOADCOMP, event.groupName));
+                    //展开LoadBar
+                    var loadBar = GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (loadBar && (loadBar instanceof LoadBar)) {
+                        loadBar.hideLoadBar();
+                    }
                 }
         }
     };
@@ -76,16 +86,19 @@ var ResLoaderManager = (function () {
     ResLoaderManager.prototype.loadProgress = function (event) {
         var group = event.groupName;
         switch (group) {
-            case "preload":
-                //this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-                break;
             case "welcomeload":
-            // if (this.loadIndexIsFirst)
-            // {
-            //     this.preload.setProgress(event.itemsLoaded, event.itemsTotal);
-            //     break;
-            // }
-            default: //this.loadBar.setProgress(event.itemsLoaded, event.itemsTotal);
+                if (this._loadIndexIsFirst) {
+                    var preload = GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                    if (preload && (preload instanceof PreLoad)) {
+                        preload.setProgress(event.itemsLoaded, event.itemsTotal);
+                    }
+                    break;
+                }
+            default:
+                var loadBar = GameLayerManager.getInstance().loadLayer.getChildAt(0);
+                if (loadBar && (loadBar instanceof LoadBar)) {
+                    loadBar.setProgress(event.itemsLoaded, event.itemsTotal);
+                }
         }
     };
     return ResLoaderManager;

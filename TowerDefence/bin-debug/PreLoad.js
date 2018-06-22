@@ -17,11 +17,29 @@ var PreLoad = (function (_super) {
         return _this;
     }
     PreLoad.prototype.onAddToStage = function (event) {
+        this.progress.visible = true;
+        this.startBtn.visible = false;
         //加载资源
+        Loader.getInstance().load('welcomeload');
     };
     PreLoad.prototype.setProgress = function (current, total) {
         this.progress.value = current;
         this.progress.maximum = total;
+    };
+    /**
+     * 加载完成
+     * @author Andrew_Huang
+     * @memberof PreLoad
+     */
+    PreLoad.prototype.loadComplete = function () {
+        this.progress.visible = false;
+        this.startBtn.visible = true;
+        this.startBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchBegin, this);
+    };
+    PreLoad.prototype.touchBegin = function () {
+        this.startBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.touchBegin, this);
+        AppFacade.instance().sendNotification(LoadingSceneNotice.CLOSE);
+        AppFacade.instance().sendNotification(SceneNotice.OPEN_INDEX);
     };
     return PreLoad;
 }(eui.Component));
