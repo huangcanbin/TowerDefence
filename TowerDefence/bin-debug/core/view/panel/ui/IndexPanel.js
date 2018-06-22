@@ -24,19 +24,14 @@ var IndexPanel = (function (_super) {
     }
     IndexPanel.prototype.createCompleteEvent = function (event) {
         //播放bgsound
-        SoundManager.playBgSound("gamebgsound_mp3");
+        //SoundManager.playBgSound("gamebgsound_mp3");
         this.removeEventListener(eui.UIEvent.COMPLETE, this.createCompleteEvent, this);
         this.showAnimation();
     };
     IndexPanel.prototype.showAnimation = function () {
-        var _this = this;
-        egret.Tween.get(this.bg).to({ alpha: 1 }, 800);
-        TweenLite.fromTo(this.logo, 0.2, { y: -this.logo.height, scaleX: 0.1, rotation: 40 }, { delay: 1.3, y: GameSetting.stageW / 2 + 70, scaleX: 1, rotation: 0, ease: egret.Ease.elasticIn });
-        egret.Tween.get(this.logo).wait(1450).to({ scaleX: 0.9 }, 100).to({ scaleX: 1 }, 100);
-        egret.Tween.get(this.logo).wait(1460).to({ scaleY: 1.1 }, 100).to({ scaleY: 1 }, 100).
-            call(function () {
-            egret.Tween.get(_this.group).to({ y: _this.logo.y + 110 }, 600, egret.Ease.bounceOut).call(function () { }, _this);
-        }, this);
+        var y = this.group.y;
+        this.group.y = this.logo.y - 110;
+        egret.Tween.get(this.group).to({ y: y }, 600, egret.Ease.bounceOut).call(function () { }, this);
     };
     IndexPanel.prototype.partAdded = function (partName, instance) {
         _super.prototype.partAdded.call(this, partName, instance);

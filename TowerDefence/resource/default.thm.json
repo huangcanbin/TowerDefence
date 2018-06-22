@@ -16,6 +16,10 @@
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
+		"resource/UISkin/IndexSkin.exml",
+		"resource/UISkin/LoadProgressSkin.exml",
+		"resource/UISkin/LoadBarSkin.exml",
+		"resource/UISkin/PreLoadSkin.exml",
 		"resource/eui_skins/ButtonSkin.exml",
 		"resource/eui_skins/CheckBoxSkin.exml",
 		"resource/eui_skins/HScrollBarSkin.exml",
@@ -28,11 +32,7 @@
 		"resource/eui_skins/TextInputSkin.exml",
 		"resource/eui_skins/ToggleSwitchSkin.exml",
 		"resource/eui_skins/VScrollBarSkin.exml",
-		"resource/eui_skins/VSliderSkin.exml",
-		"resource/UISkin/IndexSkin.exml",
-		"resource/UISkin/LoadProgressSkin.exml",
-		"resource/UISkin/LoadBarSkin.exml",
-		"resource/UISkin/PreLoadSkin.exml"
+		"resource/eui_skins/VSliderSkin.exml"
 	],
 	"path": "resource/default.thm.json"
 }

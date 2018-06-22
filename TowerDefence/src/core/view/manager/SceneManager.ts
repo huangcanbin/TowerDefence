@@ -36,8 +36,10 @@ class SceneManager extends puremvc.SimpleCommand implements puremvc.ICommand
                 // this.facade().sendNotification()
                 break;
             case SceneNotice.CLOSE_SCENE:
-                console.log("aaaa:" + data)
-                // this.facade().sendNotification(SceneNotice.CLOSE_INDEX);
+                if (data == SceneNotice.CLOSE_INDEX)
+                {
+                    this.facade().sendNotification(SceneNotice.CLOSE_INDEX);
+                }
                 break;
         }
     }

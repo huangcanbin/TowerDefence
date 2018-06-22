@@ -29,8 +29,8 @@ var LoadBar = (function (_super) {
         SoundManager.playEffect("loaderClose");
     };
     LoadBar.prototype.showAnimation = function () {
-        TweenMax.to(this.leftGroup, 0.3, { x: 0, ease: Cubic.easeOut });
-        TweenMax.to(this.rightGroup, 0.3, {
+        TweenLite.to(this.leftGroup, 0.3, { x: 0, ease: Cubic.easeOut });
+        TweenLite.to(this.rightGroup, 0.3, {
             x: 400, ease: Cubic.easeOut, onComplete: function () {
                 SceneResManager.getInstance().dispatchEvent(new MainEvent(MainEvent.REMOVE));
             }

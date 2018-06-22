@@ -21,8 +21,10 @@ var SoundManager = (function () {
         if (value === void 0) { value = 1; }
         //判断音效按钮是否静音，是则return 否则播放
         var sound_eff = RES.getRes(name);
-        sound_eff.type = egret.Sound.EFFECT;
-        sound_eff.play();
+        if (sound_eff) {
+            sound_eff.type = egret.Sound.EFFECT;
+            sound_eff.play();
+        }
     };
     /**
      * 播放背景音乐
@@ -35,8 +37,10 @@ var SoundManager = (function () {
     SoundManager.playBgSound = function (name, loop) {
         if (loop === void 0) { loop = true; }
         this.sdbg = RES.getRes(name);
-        this.sdbg.type = egret.Sound.MUSIC;
-        this.sdbg.play();
+        if (this.sdbg) {
+            this.sdbg.type = egret.Sound.MUSIC;
+            this.sdbg.play();
+        }
     };
     /**
      * 停止背景音乐
@@ -45,7 +49,9 @@ var SoundManager = (function () {
      * @memberof SoundManager
      */
     SoundManager.stopBgSound = function () {
-        this.sdbg.close();
+        if (this.sdbg) {
+            this.sdbg.close();
+        }
     };
     return SoundManager;
 }());

@@ -19,8 +19,11 @@ class SoundManager
     {
         //判断音效按钮是否静音，是则return 否则播放
         var sound_eff: egret.Sound = RES.getRes(name);
-        sound_eff.type = egret.Sound.EFFECT;
-        sound_eff.play();
+        if (sound_eff)
+        {
+            sound_eff.type = egret.Sound.EFFECT;
+            sound_eff.play();
+        }
     }
 
     /**
@@ -34,8 +37,11 @@ class SoundManager
     public static playBgSound(name: string, loop: boolean = true)
     {
         this.sdbg = RES.getRes(name);
-        this.sdbg.type = egret.Sound.MUSIC;
-        this.sdbg.play();
+        if (this.sdbg)
+        {
+            this.sdbg.type = egret.Sound.MUSIC;
+            this.sdbg.play();
+        }
     }
 
     /**
@@ -46,6 +52,9 @@ class SoundManager
      */
     public static stopBgSound()
     {
-        this.sdbg.close();
+        if (this.sdbg)
+        {
+            this.sdbg.close();
+        }
     }
 }
